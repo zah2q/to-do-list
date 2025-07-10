@@ -1,0 +1,88 @@
+<!-- tasks/templates/tasks/statistics.html -->
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h1 class="h3 mb-4">{{ page_title }}</h1>
+
+<div class="row">
+    <!-- بطاقة: إجمالي المهام -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-primary border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                            إجمالي المهام</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">{{ total_tasks }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- بطاقة: المهام المنجزة -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-success border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-success text-uppercase mb-1">
+                            المهام المنجزة</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">{{ completed_tasks }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- بطاقة: المهام غير المنجزة -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-danger border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-danger text-uppercase mb-1">
+                            المهام غير المنجزة</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">{{ incomplete_tasks }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- بطاقة: أقدم مهمة -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-warning border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                            أقدم مهمة قادمة</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">
+                            {% if oldest_incomplete_task %}
+                                {{ oldest_incomplete_task.title }}
+                                <small class="d-block text-muted">({{ oldest_incomplete_task.due_date }})</small>
+                            {% else %}
+                                لا يوجد
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

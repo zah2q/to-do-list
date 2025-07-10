@@ -1,0 +1,193 @@
+/* =================================================================== */
+/*            تصميم "الهدوء الأنيق" - Elegant Serenity Theme            */
+/* =================================================================== */
+/* =================================================================== */
+/*            تصميم "الهدوء الأنيق" - Elegant Serenity Theme            */
+/* =================================================================== */
+
+/* --- 1. إعدادات أساسية وخلفية متدرجة متحركة بألوان الباستيل --- */
+@keyframes animateGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    font-family: 'Tajawal', 'Segoe UI', sans-serif;
+    color: #4a5568; /* لون نص رمادي داكن ومريح */
+    /* التدرج اللوني الجديد بألوان الباستيل الهادئة */
+    background: linear-gradient(-45deg, #e0c3fc, #fbc2eb, #a1c4fd, #c2e9fb);
+    background-size: 400% 400%;
+    animation: animateGradient 25s ease infinite; /* تطبيق الحركة على الخلفية */
+    overflow-x: hidden;
+}
+/* --- تم حذف كود الدوائر المتحركة من هنا --- */
+
+
+/* --- 2. تصميم البطاقات والعناصر الرئيسية --- */
+.sidebar,
+.card,
+.main-content .navbar .form-control {
+    background: rgba(255, 255, 255, 0.7); /* لون أبيض شبه شفاف */
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 30px -5px rgba(200, 200, 220, 0.2); /* ظل بنفسجي ناعم جداً */
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px -5px rgba(180, 180, 210, 0.3);
+}
+
+/* --- 3. تخصيص الشريط الجانبي (Sidebar) --- */
+.sidebar {
+    border: none;
+}
+.sidebar .sidebar-brand { color: #5a5a9e; }
+.sidebar .nav-link { color: #5a6a85; font-weight: 500; }
+
+.sidebar .nav-pills .nav-link.active, 
+.sidebar .nav-pills .show > .nav-link {
+    background-color: #a49ee9; /* بنفسجي فاتح وجميل */
+    color: white;
+    box-shadow: 0 4px 15px rgba(164, 158, 233, 0.4);
+}
+
+.sidebar .nav-link:not(.active):hover {
+    background-color: rgba(230, 230, 250, 0.8);
+}
+hr { border-color: rgba(200, 200, 220, 0.4) !important; }
+
+/* --- 4. تخصيص الأزرار والنماذج --- */
+.btn { border-radius: 10px; transition: all 0.3s ease; }
+.btn-primary {
+    background-color: #a49ee9;
+    border-color: #a49ee9;
+    color: white;
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(164, 158, 233, 0.5);
+    background-color: #938be2;
+    border-color: #938be2;
+}
+
+.form-control,
+.form-select {
+    background-color: #fdfdff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+.form-control:focus {
+    background-color: white;
+    box-shadow: 0 0 0 0.25rem rgba(164, 158, 233, 0.25);
+    border-color: #a49ee9;
+}
+
+/* --- 5. تخصيص الجدول والمهام --- */
+.table { border-collapse: separate; border-spacing: 0 8px; --bs-table-bg: transparent; }
+.table th { border: none; color: #718096; }
+.table tr.task-row {
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(220, 220, 240, 0.5);
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+.table tr.task-row:hover {
+    transform: scale(1.02);
+    z-index: 10;
+    position: relative;
+}
+.table td { border-top: none; vertical-align: middle; }
+.table td:first-child { border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+.table td:last-child { border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+
+.task-completed .task-title { text-decoration: line-through; opacity: 0.5; }
+tr.task-completed { opacity: 0.7; }
+
+/* شارات الأولوية بألوان الباستيل */
+.priority-badge { font-weight: 500; border-radius: 6px; padding: 0.3em 0.6em; }
+.priority-badge.priority-h { background-color: #fecdd3; color: #9f1239; } /* وردي غامق */
+.priority-badge.priority-m { background-color: #d8b4fe; color: #6b21a8; } /* بنفسجي */
+.priority-badge.priority-l { background-color: #bfdbfe; color: #1e40af; } /* أزرق */
+
+/* --- 6. إخفاء زر الوضع الليلي --- */
+.theme-switch-wrapper {
+    display: none;
+}
+/* ... كل الكود السابق يبقى كما هو ... */
+
+/* --- كود جديد لتمييز المهام منتهية الصلاحية --- */
+.table tr.task-expired {
+    background-color: rgba(255, 224, 224, 0.7) !important; /* لون خلفية أحمر فاتح */
+    opacity: 0.8;
+}
+
+.table tr.task-expired .task-title {
+    text-decoration: line-through;
+    color: #b00020;
+}
+/* =================================================================== */
+/*           تعديلات أنيقة لصفحة النموذج (Form)                       */
+/* =================================================================== */
+
+/* --- حاوية حقل الإدخال مع الأيقونة --- */
+.form-field-group {
+    position: relative;
+    margin-bottom: 1.5rem; /* زيادة المسافة بين الحقول */
+}
+
+/* --- الأيقونة داخل حقل الإدخال --- */
+.form-field-group .form-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px; /* وضع الأيقونة على اليمين لتناسب اللغة العربية */
+    transform: translateY(-50%);
+    color: #a49ee9; /* لون بنفسجي هادئ */
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+/* --- تصميم حقول الإدخال المحسّن --- */
+.form-field-group .form-control,
+.form-field-group .form-select {
+    padding-right: 45px; /* ترك مسافة على اليمين للأيقونة */
+    background-color: #fdfdff;
+    border: 2px solid #e2e8f0; /* حدود أكثر سماكة */
+    border-radius: 12px;
+    height: 50px; /* زيادة ارتفاع الحقل */
+    transition: all 0.3s ease;
+}
+
+/* --- التأثير عند التركيز على الحقل --- */
+.form-field-group .form-control:focus {
+    background-color: white;
+    border-color: #a49ee9;
+    box-shadow: 0 0 0 4px rgba(164, 158, 233, 0.2);
+}
+
+.form-field-group .form-control:focus + .form-icon {
+    color: #938be2; /* تغيير لون الأيقونة عند التركيز */
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1); /* تكبير الأيقونة قليلاً */
+}
+
+/* --- تعديل بسيط لمربع الوصف (textarea) --- */
+.form-field-group textarea.form-control {
+    height: auto; /* السماح بتغيير ارتفاعه */
+    padding-top: 12px;
+}
+
+/* --- تعديل حقل رفع الصور --- */
+.form-control[type="file"] {
+    padding-right: 15px; /* لا نحتاج مسافة كبيرة للأيقونة هنا */
+    line-height: 1.8;
+}
+
+/* --- تعديل حقل التاريخ والوقت --- */
+.form-control[type="datetime-local"] {
+    line-height: 1.8;
+}

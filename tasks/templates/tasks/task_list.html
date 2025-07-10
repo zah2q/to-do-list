@@ -1,0 +1,84 @@
+{% extends 'tasks/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 animated-fade-in">
+    <h3 class="m-0">{{ page_title }}</h3>
+    <div class="btn-group" role="group">
+        {% if request.GET.sort == 'priority' %}
+            <a href="?filter={{ request.GET.filter|default:'incomplete' }}&q={{ request.GET.q|default:'' }}" class="btn btn-secondary"><i class="fas fa-times me-2"></i> إلغاء الترتيب</a>
+        {% else %}
+            <a href="?{{ request.GET.urlencode }}&sort=priority" class="btn btn-outline-secondary"><i class="fas fa-sort-amount-down me-2"></i> ترتيب حسب الأولوية</a>
+        {% endif %}
+        <a href="{% url 'task_create' %}" class="btn btn-primary"><i class="fas fa-plus me-2"></i> إضافة مهمة</a>
+    </div>
+</div>
+
+<div class="card animated-fade-in" style="animation-delay: 0.1s;">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;"></th>
+                        <th style="width: 30%;">المهمة</th>
+                        <th style="width: 15%;">الأولوية</th>
+                        <!-- --- تم تعديل العناوين هنا --- -->
+                        <th style="width: 15%;">تاريخ الإنشاء</th>
+                        <th style="width: 15%;">تاريخ الانتهاء</th>
+                        <th style="width: 10%;">الصورة</th>
+                        <th style="width: 10%;">إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <!-- --- هنا نضيف كلاس جديد للمهام منتهية الصلاحية --- -->
+                    <tr id="task-row-{{ task.pk }}" class="task-row {% if task.completed %}task-completed{% elif task.is_expired %}task-expired{% endif %}">
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input task-toggle" type="checkbox" data-task-id="{{ task.pk }}" {% if task.completed %}checked{% endif %} title="تحديد كمنجزة">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="task-title">{{ task.title }}</div>
+                             <!-- --- هنا نظهر علامة للمهام منتهية الصلاحية --- -->
+                            {% if task.is_expired %}
+                                <span class="badge bg-danger">منتهية الصلاحية</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge priority-badge priority-{{ task.priority|lower }}">{{ task.get_priority_display }}</span>
+                        </td>
+                        <!-- --- هنا نعرض الحقول الجديدة --- -->
+                        <td>{{ task.created_at|date:"Y-m-d" }}</td>
+                        <td>{{ task.expiration_date|date:"Y-m-d" }} <br> <small class="text-muted">{{ task.expiration_date|time:"H:i" }}</small></td>
+                        <td class="text-center">
+                             {% if task.image %}
+                                <a href="{{ task.image.url }}" class="task-image-thumbnail" data-task-title="{{ task.title }}">
+                                    <img src="{{ task.image.url }}" alt="صورة مصغرة" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer;">
+                                </a>
+                            {% else %} 
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-outline-info" title="تعديل"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-outline-danger" title="حذف"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="7" class="text-center py-5">
+                        <i class="fas fa-folder-open fa-3x text-secondary mb-3"></i>
+                        <p class="mb-0">لا توجد مهام لعرضها في هذا القسم.</p>
+                        {% if not request.GET.q %}<p><a href="{% url 'task_create' %}">ابدأ بإضافة مهمة جديدة!</a></p>{% endif %}
+                    </td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- باقي الكود يبقى كما هو -->
+<script>
+// ...
+</script>
+{% endblock content %}
